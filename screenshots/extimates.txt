@@ -1,0 +1,27 @@
+﻿Write a paragraph or two describing the achievable Recovery Time Objective (RTO) and Recovery Point Objective (RPO) for this Multi-AZ, multi-region database in terms of:
+
+1. Minimum RTO for a single AZ outage1
+2. Minimum RTO for a single region outage
+3. Minimum RPO for a single AZ outage
+4. Minimum RPO for a single region outage
+
+
+1. In a multi-AZ setup, failover to another AZ occurs automatically and may take a few minutes to complete.
+
+2. Minimum RTO for a single region outage:
+- 00:00 - Problem happens (0 minutes) 
+- 00:05 - An alert triggers (5 minutes) 
+- 00:15 - On-call staff realize the situation, get to computer, log in (10 minutes) 
+- 00:35 - Diagnosing issue (20 minutes) 
+- 00:45 - Discover root cause (10 minutes) 
+- 00:55 - Remediation (10 minutes)
+- 01:00 - Remediation completed (5 minutes) 
+       Total time: 60 minutes 
+
+3. Since failover to another AZ takes only a few minutes, a small amount of data may be lost during the process.       
+    
+4. When an RDS database is configured with automatic backups enabled, the RPO depends on the backup frequency. For instance, if backups are scheduled every 2 hours, the minimum RPO will be 2 hours.
+
+
+
+
