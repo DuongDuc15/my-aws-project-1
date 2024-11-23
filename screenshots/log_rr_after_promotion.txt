@@ -1,10 +1,11 @@
-[ec2-user@ip-10-2-11-232 ~]$ mysql -h replica-db.cksbi1yc3pke.us-west-2.rds.amazonaws.com -u admin -p udacity
+mysql> INSERT INTO duc_things (name, count) VALUES ('Cups', 3);
+ERROR 1290 (HY000): The MySQL server is running with the --read-only option so it cannot execute this statement
+mysql> exit
+Bye
+[ec2-user@ip-10-2-10-50 ~]$ mysql -u admin -p -h duc-replica-db.cksbi1yc3pke.us-west-2.rds.amazonaws.com
 Enter password:
-Reading table information for completion of table and column names
-You can turn off this feature to get a quicker startup with -A
-
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 10
+Your MySQL connection id is 30
 Server version: 8.0.39 Source distribution
 
 Copyright (c) 2000, 2023, Oracle and/or its affiliates.
@@ -15,29 +16,58 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> INSERT INTO test_table (name) VALUES ('Promoted User');
+mysql> USE udacity;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT * FROM duc_things;
++----+-------+-------+
+| id | name  | count |
++----+-------+-------+
+|  1 | Books |    10 |
+|  2 | Bike  |     1 |
++----+-------+-------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO duc_things (name, count) VALUES ('Cups', 3);
 Query OK, 1 row affected (0.00 sec)
 
-mysql> SELECT * FROM test_table;
-+----+---------------+---------------------+
-| id | name          | created_at          |
-+----+---------------+---------------------+
-|  1 | Test Entry 1  | 2024-11-17 20:30:12 |
-|  2 | Test Entry 2  | 2024-11-17 20:30:12 |
-|  3 | Promoted User | 2024-11-17 21:09:58 |
-+----+---------------+---------------------+
-3 rows in set (0.00 sec)
+mysql> SELECT * FROM duc_things;
+ERROR 1053 (08S01): Server shutdown in progress
+mysql> SELECT * FROM duc_things;
+ERROR 2013 (HY000): Lost connection to MySQL server during query
+mysql> exit
+Bye
+[ec2-user@ip-10-2-10-50 ~]$ mysql -u admin -p -h duc-replica-db.cksbi1yc3pke.us-west-2.rds.amazonaws.com
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.39 Source distribution
 
-mysql> SHOW DATABASES;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| performance_schema |
-| sys                |
-| udacity            |
-+--------------------+
-5 rows in set (0.01 sec)
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SELECT * FROM duc_things;
+ERROR 1046 (3D000): No database selected
+mysql> USE udacity;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT * FROM duc_things;
++----+-------+-------+
+| id | name  | count |
++----+-------+-------+
+|  1 | Books |    10 |
+|  2 | Bike  |     1 |
+|  3 | Cups  |     3 |
++----+-------+-------+
+3 rows in set (0.00 sec)
 
 mysql>

@@ -1,10 +1,7 @@
-[ec2-user@ip-10-2-11-232 ~]$ mysql -h replica-db.cksbi1yc3pke.us-west-2.rds.amazonaws.com -u admin -p udacity
+[ec2-user@ip-10-2-10-50 ~]$ mysql -u admin -p -h duc-replica-db.cksbi1yc3pke.us-west-2.rds.amazonaws.com
 Enter password:
-Reading table information for completion of table and column names
-You can turn off this feature to get a quicker startup with -A
-
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 144
+Your MySQL connection id is 27
 Server version: 8.0.39 Source distribution
 
 Copyright (c) 2000, 2023, Oracle and/or its affiliates.
@@ -15,17 +12,20 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> INSERT INTO test_table (name) VALUES ('Test User');
-ERROR 1290 (HY000): The MySQL server is running with the --read-only option so it cannot execute this statement
-mysql> SELECT * FROM test_table;
-+----+--------------+---------------------+
-| id | name         | created_at          |
-+----+--------------+---------------------+
-|  1 | Test Entry 1 | 2024-11-17 20:30:12 |
-|  2 | Test Entry 2 | 2024-11-17 20:30:12 |
-+----+--------------+---------------------+
+mysql> USE udacity;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SELECT * FROM duc_things;
++----+-------+-------+
+| id | name  | count |
++----+-------+-------+
+|  1 | Books |    10 |
+|  2 | Bike  |     1 |
++----+-------+-------+
 2 rows in set (0.00 sec)
 
+mysql> INSERT INTO duc_things (name, count) VALUES ('Cups', 3);
+ERROR 1290 (HY000): The MySQL server is running with the --read-only option so it cannot execute this statement
 mysql>
-
-
